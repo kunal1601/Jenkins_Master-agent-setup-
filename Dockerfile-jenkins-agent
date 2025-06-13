@@ -1,0 +1,34 @@
+FROM ubuntu:22.04
+
+# Set environment variables to suppress some warnings
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    openjdk-17-jdk \
+    openssh-server \
+    sudo \
+    curl \
+    git \
+    && apt-get clean
+
+# Create a Jenkins user
+RUN useradd -m -s /bin/bash jenkins && echo "jenkins:jenkins" | chpasswd && adduser jenkins sudo
+
+# Create SSH directories
+RUN mkdir -p /var/run/sshd
+
+# Generate SSH host keys
+RUN ssh-keygen -A
+
+# Set up SSH authorized_keys for the jenkins user (optional here; you'll copy master key later)
+RUN mkdir -p /home/jenkins/.ssh && \
+    chown jenkins:jenkins /home/jenkins/.ssh && \
+    chmod 700 /home/jenkins/.ssh
+
+# Expose SSH port
+EXPOSE 22
+
+# Start the SSH service
+CMD ["/usr/sbin/sshd", "-D"]
+
