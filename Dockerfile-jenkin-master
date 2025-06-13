@@ -1,0 +1,45 @@
+FROM ubuntu:22.04
+
+# Disable interactive prompts
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    openjdk-17-jdk \
+    wget \
+    curl \
+    gnupg2 \
+    git \
+    unzip \
+    iputils-ping \
+    sudo \
+    net-tools \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set environment variable for Java
+ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+ENV PATH=$JAVA_HOME/bin:$PATH
+
+# Create Jenkins user
+RUN useradd -m -d /var/jenkins_home -u 1000 jenkins
+
+# Download latest Jenkins LTS WAR file (check https://www.jenkins.io/download/)
+RUN mkdir -p /home/jenkins
+WORKDIR /home/jenkins
+RUN wget -O /home/jenkins/jenkins.war https://get.jenkins.io/war-stable/latest/jenkins.war
+
+# Expose Jenkins port
+EXPOSE 8080
+
+# Set Jenkins home
+ENV JENKINS_HOME=/var/jenkins_home
+
+# Switch to Jenkins user
+USER jenkins
+
+# Start Jenkins
+CMD ["java", "-jar", "/home/jenkins/jenkins.war"]
+
+~
+~
+
