@@ -1,18 +1,33 @@
-# 🛠️ Jenkins Master-Agent Setup using Docker on EC2
+# 🐳 Jenkins-Powered CI/CD: Local Docker Registry + Full EC2 Pipeline!
 
-This project demonstrates how to set up a **Jenkins Master** container and a **Jenkins Agent (Slave)** container using **Docker**. The entire infrastructure runs on an **EC2 instance** and does not rely on pre-built Jenkins images.
-
----
-
-## 🔧 Technologies Used
-
-- Docker
-- Jenkins (WAR-based setup)
-- SSH-based Jenkins Agent
-- AWS EC2 (Amazon Linux 2 or Ubuntu)
-- Shell scripting
+## 🚀 Project Overview
+This project demonstrates a fully automated **CI/CD pipeline** powered by Jenkins, running entirely on AWS EC2 instances. It showcases how Docker images can be built, pushed to a local private registry, and then deployed on a production server — all triggered by Jenkins!
 
 ---
 
+## ✅ Key Highlights
 
-[LinkedIn Article](https://www.linkedin.com/pulse/setting-up-jenkins-master-agent-architecture-using-docker-sharma-4e7rc/?trackingId=F9EePu3YRz6j0v6QdkBEFg%3D%3D)
+- **Jenkins Master-Agent Setup**  
+  Efficiently distributed Jenkins architecture for build and deploy stages.
+
+- **Docker Image Built & Pushed**  
+  Jenkins builds the application Docker image and pushes it to a **private local Docker registry**.
+
+- **Automated Deployment to Production EC2**  
+  A production EC2 instance pulls the latest image from the local registry and launches the **containerized web application** automatically.
+
+---
+
+## 🛠️ Tech Stack
+
+- Jenkins (Master-Agent)
+- Docker (Engine + Private Registry)
+- Git
+- AWS EC2
+- Shell Scripting
+
+---
+
+## 📎 LinkedIn Post
+
+👉 [Check it out on LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7345041317858635776/)
